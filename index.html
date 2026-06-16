@@ -3,65 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nahiyan IPTV - Download</title>
+    <title>Nahiyan IPTV - Premium Streaming Player</title>
     <style>
+        :root {
+            --bg-top: #0A0A12;
+            --bg-bottom: #141422;
+            --accent: #8B5CF6;
+            --accent-gradient: linear-gradient(135deg, #7C3AED, #A855F7);
+            --text-primary: #F5F5F8;
+            --text-secondary: #9AA0AE;
+            --card-bg: #1A1A28;
+            --card-border: rgba(255, 255, 255, 0.08);
+        }
+
         body {
-            background-color: #0A0A12;
-            color: #F5F5F8;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
+        }
+
+        .hero-section {
             text-align: center;
+            padding: 80px 20px 40px 20px;
+            max-width: 800px;
         }
-        .container {
-            background-color: #1A1A28;
-            padding: 40px;
-            border-radius: 18px;
-            border: 1px solid rgba(255,255,255,0.08);
-            max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+
         h1 {
-            margin-top: 0;
-            font-size: 2.5rem;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 0 0 10px 0;
+            letter-spacing: -1px;
             background: linear-gradient(to right, #A855F7, #EC4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        p {
-            color: #9AA0AE;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            margin-bottom: 30px;
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
         }
+
         .download-btn {
-            background: linear-gradient(to right, #7C3AED, #A855F7);
+            background: var(--accent-gradient);
             color: white;
             text-decoration: none;
-            padding: 15px 30px;
+            padding: 16px 36px;
             font-size: 1.2rem;
             font-weight: bold;
-            border-radius: 12px;
+            border-radius: 14px;
             display: inline-block;
-            transition: transform 0.2s;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+            transition: all 0.2s ease-in-out;
         }
+
         .download-btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+        }
+
+        /* --- Main Content Layout --- */
+        .main-container {
+            max-width: 1000px;
+            width: 100%;
+            padding: 0 20px 80px 20px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin: 60px 0 30px 0;
+            background: linear-gradient(to right, #F5F5F8, #9AA0AE);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Grid Configurations --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            border-radius: 20px;
+            transition: border 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- Compatibility Section --- */
+        .compat-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 25px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .compat-box { grid-template-columns: 1fr; gap: 25px; padding: 25px; }
+            h1 { font-size: 2.5rem; }
+        }
+
+        .compat-column h4 {
+            margin: 0 0 15px 0;
+            font-size: 1.25rem;
+            color: #A855F7;
+        }
+
+        .compat-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .compat-column li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .compat-column li::before {
+            content: "✓";
+            color: #10B981;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 30px;
+            color: rgba(255,255,255,0.2);
+            font-size: 0.85rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.02);
+            width: 100%;
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <!-- Hero Header -->
+    <div class="hero-section">
         <h1>Nahiyan IPTV</h1>
-        <p>The premium, ad-free IPTV player built for Android and Google TV. Load your M3U playlists or Xtream Codes and stream live channels instantly.</p>
-        
-        <a href="nahiyan-iptv.apk" class="download-btn" download>Download APK</a>
+        <p class="subtitle">An advanced, beautifully optimized streaming engine built from scratch for Android and Google TV ecosystems. Completely ad-free, secure, and blazingly fast.</p>
+        <a href="nahiyan-iptv.apk" class="download-btn" download>Download APK v1.0.4</a>
     </div>
+
+    <!-- Main Content Container -->
+    <div class="main-container">
+        
+        <h2>Key Capabilities</h2>
+        <div class="features-grid">
+            <div class="card">
+                <span class="card-icon">⚡</span>
+                <h3>Anti-Freeze Engine</h3>
+                <p>Equipped with a background network watchdog that auto-reconnects and safely hot-swaps hardware decoders if your streaming provider drops a connection.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">📺</span>
+                <h3>True TV-First Interface</h3>
+                <p>Designed natively with directional navigation focus. Fully compatible with standard television remotes, showing distinct hover glow and scaling elements.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">🎛️</span>
+                <h3>Smart UI Management</h3>
+                <p>Overlay display elements dynamically fade out after 5 seconds of inactivity to give you an entirely uninterrupted, full-screen viewing experience.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">⭐</span>
+                <h3>Profiles & Favorites</h3>
+                <p>Save multiple custom configurations. Pin your top channels to a localized global Favorites list and navigate through your Recently Watched dashboard with ease.</p>
+            </div>
+        </div>
+
+        <h2>Stream & Format Compatibility</h2>
+        <div class="compat-box">
+            <div class="compat-column">
+                <h4>Supported Formats</h4>
+                <ul>
+                    <li>Standard Remote M3U/M3U8 Playlists</li>
+                    <li>Xtream Codes API Credentials</li>
+                    <li>Direct Single Stream URL Input</li>
+                    <li>MPEG-TS (.ts) Uncompressed Video Pipes</li>
+                    <li>Cross-Protocol HTTP/HTTPS Redirects</li>
+                </ul>
+            </div>
+            <div class="compat-column">
+                <h4>Hardware Environment</h4>
+                <ul>
+                    <li>Sony, TCL, Hisense Smart Android TVs</li>
+                    <li>Chromecast with Google TV dongles</li>
+                    <li>NVIDIA Shield TV & Android Streaming Boxes</li>
+                    <li>Modern Android Mobile Devices (Auto-Orientation)</li>
+                    <li>Automatic Hardware/Software Decoder Fallback</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Installation Instructions</h2>
+        <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+            <div class="card" style="padding: 20px;">
+                <p><strong>1. Download:</strong> Click the primary download button above to save the compiled <code>nahiyan-iptv.apk</code> to your device storage.</p>
+            </div>
+            <div class="card" style="padding: 20px;">
+                <p><strong>2. Allow Unknown Sources:</strong> Ensure your Android system settings permit package installations via your browser or file manager.</p>
+            </div>
+            <div class="card" style="padding: 20px;">
+                <p><strong>3. Configure:</strong> Open the application, input your direct `.m3u` link or server credentials, and begin streaming live television.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Nahiyan IPTV. For private and authorized stream playing deployment.
+    </footer>
 
 </body>
 </html>
