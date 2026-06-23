@@ -7,7 +7,7 @@
 
 A masterclass in Android streaming. **Nahiyan IPTV** is a premium, ad-free IPTV client built entirely from scratch using modern Jetpack Compose and ExoPlayer architectures. Engineered specifically to handle massive playlists, prevent stream freezing, and deliver a native, lightning-fast experience on both Android Mobile and Android TV.
 
-🌐 [Official Download Page](https://[your-username].github.io/nahiyan-iptv-app/)
+🌐 [Official Download Page](https://spectralguise.github.io/nahiyan-iptv-app/)
 
 ---
 
