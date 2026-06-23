@@ -3,260 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nahiyan IPTV - Premium Streaming Player</title>
+    <title>Nahiyan IPTV | The Ultimate Android TV Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-top: #0A0A12;
             --bg-bottom: #141422;
             --accent: #8B5CF6;
-            --accent-gradient: linear-gradient(135deg, #7C3AED, #A855F7);
+            --accent-glow: rgba(139, 92, 246, 0.5);
             --text-primary: #F5F5F8;
             --text-secondary: #9AA0AE;
-            --card-bg: #1A1A28;
+            --card-bg: rgba(26, 26, 40, 0.6);
             --card-border: rgba(255, 255, 255, 0.08);
+            --gradient-1: linear-gradient(135deg, #7C3AED, #A855F7);
+            --gradient-2: linear-gradient(135deg, #2563EB, #06B6D4);
+            --gradient-3: linear-gradient(135deg, #EC4899, #F59E0B);
         }
 
         body {
-            background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
+            background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+            background-attachment: fixed;
             color: var(--text-primary);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
 
-        .hero-section {
-            text-align: center;
-            padding: 80px 20px 40px 20px;
-            max-width: 800px;
+        /* Abstract background glow elements */
+        .glow-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.4;
         }
+        .glow-1 { top: -100px; left: -100px; width: 400px; height: 400px; background: #7C3AED; }
+        .glow-2 { top: 40%; right: -150px; width: 500px; height: 500px; background: #06B6D4; }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin: 0 0 10px 0;
-            letter-spacing: -1px;
-            background: linear-gradient(to right, #A855F7, #EC4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 1.25rem;
-            line-height: 1.6;
-            margin-bottom: 35px;
-        }
-
-        .download-btn {
-            background: var(--accent-gradient);
-            color: white;
-            text-decoration: none;
-            padding: 16px 36px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 14px;
-            display: inline-block;
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
-            transition: all 0.2s ease-in-out;
-        }
-
-        .download-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
-        }
-
-        /* --- Main Content Layout --- */
-        .main-container {
-            max-width: 1000px;
+        .container {
+            max-width: 1200px;
             width: 100%;
-            padding: 0 20px 80px 20px;
+            padding: 0 24px;
             box-sizing: border-box;
         }
 
-        h2 {
-            font-size: 2rem;
-            font-weight: 800;
+        /* --- Hero Section --- */
+        .hero {
             text-align: center;
-            margin: 60px 0 30px 0;
-            background: linear-gradient(to right, #F5F5F8, #9AA0AE);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            padding: 120px 0 80px;
+            animation: fadeIn 1s ease-out;
         }
 
-        /* --- Grid Configurations --- */
-        .features-grid {
+        .badge {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.15);
+            color: #A855F7;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin: 0 0 20px 0;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #A855F7, #EC4899, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: var(--gradient-1);
+            color: white;
+            text-decoration: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 14px;
+            display: inline-block;
+            box-shadow: 0 10px 30px var(--accent-glow);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.6);
+        }
+
+        .btn:hover::after {
+            left: 150%;
+        }
+
+        /* --- Features Grid --- */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 80px 0 50px;
+        }
+
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 100px;
         }
 
         .card {
-            background-color: var(--card-bg);
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--card-border);
-            padding: 30px;
             border-radius: 20px;
-            transition: border 0.3s ease;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
-            border-color: rgba(139, 92, 246, 0.4);
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.5);
+            background: rgba(30, 30, 45, 0.8);
         }
 
-        .card-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            display: inline-block;
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
         }
+
+        .icon-1 { background: var(--gradient-1); }
+        .icon-2 { background: var(--gradient-2); }
+        .icon-3 { background: var(--gradient-3); }
 
         .card h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            margin: 0 0 12px 0;
             font-weight: 700;
         }
 
         .card p {
-            margin: 0;
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            margin: 0;
             line-height: 1.6;
         }
 
-        /* --- Compatibility Section --- */
-        .compat-box {
-            background-color: var(--card-bg);
+        /* --- Tech Specs --- */
+        .specs-container {
+            background: rgba(0,0,0,0.4);
             border: 1px solid var(--card-border);
-            border-radius: 25px;
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            border-radius: 24px;
+            padding: 50px;
+            display: flex;
+            flex-wrap: wrap;
             gap: 40px;
+            margin-bottom: 100px;
         }
 
-        @media (max-width: 768px) {
-            .compat-box { grid-template-columns: 1fr; gap: 25px; padding: 25px; }
-            h1 { font-size: 2.5rem; }
+        .spec-list {
+            flex: 1;
+            min-width: 250px;
         }
 
-        .compat-column h4 {
-            margin: 0 0 15px 0;
-            font-size: 1.25rem;
-            color: #A855F7;
+        .spec-list h4 {
+            color: #F5F5F8;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .compat-column ul {
+        .spec-list ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
-        .compat-column li {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
+        .spec-list li {
             color: var(--text-secondary);
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
         }
 
-        .compat-column li::before {
+        .spec-list li::before {
             content: "✓";
-            color: #10B981;
-            font-weight: bold;
+            color: #06B6D4;
+            font-weight: 900;
             margin-right: 12px;
         }
 
         footer {
-            margin-top: auto;
-            padding: 30px;
-            color: rgba(255,255,255,0.2);
-            font-size: 0.85rem;
+            padding: 40px 0;
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.02);
+            color: rgba(255,255,255,0.3);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
             width: 100%;
-            box-sizing: border-box;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .hero { padding: 80px 0 50px; }
+            .specs-container { padding: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero Header -->
-    <div class="hero-section">
-        <h1>Nahiyan IPTV</h1>
-        <p class="subtitle">An advanced, beautifully optimized streaming engine built from scratch for Android and Google TV ecosystems. Completely ad-free, secure, and blazingly fast.</p>
-        <a href="nahiyan-iptv.apk" class="download-btn" download>Download APK v1.0.4</a>
-    </div>
+    <div class="glow-circle glow-1"></div>
+    <div class="glow-circle glow-2"></div>
 
-    <!-- Main Content Container -->
-    <div class="main-container">
+    <div class="container">
+        <section class="hero">
+            <div class="badge">Version 2.0 Unleashed</div>
+            <h1>Nahiyan <span class="text-gradient">IPTV</span></h1>
+            <p>A masterclass in Android streaming. Built entirely from scratch with Jetpack Compose and ExoPlayer to deliver a zero-lag, premium television experience.</p>
+            <a href="nahiyan-iptv.apk" class="btn" download>Download APK</a>
+        </section>
+
+        <h2 class="section-title">Engineered for Perfection</h2>
         
-        <h2>Key Capabilities</h2>
-        <div class="features-grid">
+        <section class="grid">
             <div class="card">
-                <span class="card-icon">⚡</span>
-                <h3>Anti-Freeze Engine</h3>
-                <p>Equipped with a background network watchdog that auto-reconnects and safely hot-swaps hardware decoders if your streaming provider drops a connection.</p>
+                <div class="icon-box icon-1">⚡</div>
+                <h3>Zero-Freeze Watchdog</h3>
+                <p>Equipped with an aggressive background timeline tracker. If your provider drops a frame, the app completely wipes and rebuilds the hardware decoder in under 5 seconds.</p>
             </div>
+            
             <div class="card">
-                <span class="card-icon">📺</span>
-                <h3>True TV-First Interface</h3>
-                <p>Designed natively with directional navigation focus. Fully compatible with standard television remotes, showing distinct hover glow and scaling elements.</p>
+                <div class="icon-box icon-2">🔍</div>
+                <h3>Universal Global Search</h3>
+                <p>Find exactly what you want instantly—whether it's the latest VOD blockbuster, a TV series, or the live Argentina football match, all from a single unified search bar.</p>
             </div>
-            <div class="card">
-                <span class="card-icon">🎛️</span>
-                <h3>Smart UI Management</h3>
-                <p>Overlay display elements dynamically fade out after 5 seconds of inactivity to give you an entirely uninterrupted, full-screen viewing experience.</p>
-            </div>
-            <div class="card">
-                <span class="card-icon">⭐</span>
-                <h3>Profiles & Favorites</h3>
-                <p>Save multiple custom configurations. Pin your top channels to a localized global Favorites list and navigate through your Recently Watched dashboard with ease.</p>
-            </div>
-        </div>
 
-        <h2>Stream & Format Compatibility</h2>
-        <div class="compat-box">
-            <div class="compat-column">
-                <h4>Supported Formats</h4>
+            <div class="card">
+                <div class="icon-box icon-3">🗗</div>
+                <h3>Picture-in-Picture</h3>
+                <p>Never miss a moment. Minimize your live stream or VOD into a floating window seamlessly while you browse other apps or check the Android TV dashboard.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-box icon-2">A</div>
+                <h3>Advanced Media Tracks</h3>
+                <p>Total control over your VODs. Switch seamlessly between multiple embedded audio languages and customize subtitle colors, shadows, and sizes directly in the player.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-box icon-3">🔒</div>
+                <h3>Parental PIN Controls</h3>
+                <p>Keep your library organized and safe. Secure specific live TV and VOD categories behind a custom 4-digit PIN lock managed via the Premium Settings dashboard.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-box icon-1">📺</div>
+                <h3>Live EPG & Catch-Up</h3>
+                <p>See exactly what's playing with integrated Electronic Program Guide (EPG) parsing that displays 'Now' and 'Next' programming natively inside the ExoPlayer UI.</p>
+            </div>
+        </section>
+
+        <section class="specs-container">
+            <div class="spec-list">
+                <h4>Supported Playlists</h4>
                 <ul>
-                    <li>Standard Remote M3U/M3U8 Playlists</li>
-                    <li>Xtream Codes API Credentials</li>
+                    <li>Xtream Codes API Integration</li>
+                    <li>Remote .M3U / .M3U8 Playlists</li>
                     <li>Direct Single Stream URL Input</li>
-                    <li>MPEG-TS (.ts) Uncompressed Video Pipes</li>
-                    <li>Cross-Protocol HTTP/HTTPS Redirects</li>
+                    <li>MPEG-TS (.ts) Stream Parsing</li>
                 </ul>
             </div>
-            <div class="compat-column">
-                <h4>Hardware Environment</h4>
+            <div class="spec-list">
+                <h4>Hardware Compatibility</h4>
                 <ul>
-                    <li>Sony, TCL, Hisense Smart Android TVs</li>
-                    <li>Chromecast with Google TV dongles</li>
-                    <li>NVIDIA Shield TV & Android Streaming Boxes</li>
-                    <li>Modern Android Mobile Devices (Auto-Orientation)</li>
-                    <li>Automatic Hardware/Software Decoder Fallback</li>
+                    <li>NVIDIA Shield & Google TV Chromecasts</li>
+                    <li>Sony, TCL, & Hisense Android Smart TVs</li>
+                    <li>Android Mobile (Adaptive Orientation)</li>
+                    <li>Manual Hardware/Software Decoder Toggle</li>
                 </ul>
             </div>
-        </div>
-
-        <h2>Installation Instructions</h2>
-        <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
-            <div class="card" style="padding: 20px;">
-                <p><strong>1. Download:</strong> Click the primary download button above to save the compiled <code>nahiyan-iptv.apk</code> to your device storage.</p>
+            <div class="spec-list">
+                <h4>Player Capabilities</h4>
+                <ul>
+                    <li>Auto-Resume VOD Playback</li>
+                    <li>Recently Watched Tracking</li>
+                    <li>One-Click Global Favorites</li>
+                    <li>Auto-Hiding D-Pad Focus UI</li>
+                </ul>
             </div>
-            <div class="card" style="padding: 20px;">
-                <p><strong>2. Allow Unknown Sources:</strong> Ensure your Android system settings permit package installations via your browser or file manager.</p>
-            </div>
-            <div class="card" style="padding: 20px;">
-                <p><strong>3. Configure:</strong> Open the application, input your direct `.m3u` link or server credentials, and begin streaming live television.</p>
-            </div>
-        </div>
+        </section>
 
     </div>
 
     <footer>
-        &copy; 2026 Nahiyan IPTV. For private and authorized stream playing deployment.
+        <p>&copy; 2026 Nahiyan IPTV. Authorized for private streaming deployment.</p>
     </footer>
 
 </body>
